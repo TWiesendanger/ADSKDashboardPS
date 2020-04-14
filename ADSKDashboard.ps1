@@ -23,7 +23,6 @@ else {
 }
 
 #MARK YEAR that is activ
-#2021 Regkey ergänzen
 #close to tray?
 
 ##############################################################
@@ -109,38 +108,48 @@ $RKeyACADDE2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uni
 $RKeyACADDE2018 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-1001-0407-1102-CF3F3A09B77D}"
 $RKeyACADDE2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-2001-0407-1102-CF3F3A09B77D}"
 $RKeyACADDE2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-3001-0407-1102-CF3F3A09B77D}"
+$RKeyACADDE2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-4101-0407-1102-CF3F3A09B77D}"
 
 #AutoCAD English
 $RKeyACADENU2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-0001-0409-1102-CF3F3A09B77D}"
 $RKeyACADENU2018 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-1001-0409-1102-CF3F3A09B77D}"
 $RKeyACADENU2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-2001-0409-1102-CF3F3A09B77D}" 
 $RKeyACADENU2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-3001-0409-1102-CF3F3A09B77D}"
+$RKeyACADENU2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-4101-0409-1102-CF3F3A09B77D}"
 
 #AutoCAD Mechanical German
 $RKeyACADMDE2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-0005-0407-1102-CF3F3A09B77D}"
 $RKeyACADMDE2018 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-1005-0407-1102-CF3F3A09B77D}"
 $RKeyACADMDE2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-2005-0407-1102-CF3F3A09B77D}" 
 $RKeyACADMDE2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-3005-0407-1102-CF3F3A09B77D}"
+$RKeyACADMDE2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-4105-0407-1102-CF3F3A09B77D}"
 
 #AutoCAD Mechanical English 
 $RKeyACADMENU2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-0005-0409-1102-CF3F3A09B77D}"
 $RKeyACADMENU2018 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-1005-0409-1102-CF3F3A09B77D}"
 $RKeyACADMENU2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-2005-0409-1102-CF3F3A09B77D}"
 $RKeyACADMENU2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-3005-0409-1102-CF3F3A09B77D}"
+$RKeyACADMENU2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-4105-0409-1102-CF3F3A09B77D}"
 
 #Inventor German
 $RKeyINVDE2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2164-0001-1031-7107D70F3DB4}"
 $RKeyINVDE2018 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2264-0001-1031-7107D70F3DB4}"
 $RKeyINVDE2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2364-0001-1031-7107D70F3DB4}"
 $RKeyINVDE2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2464-0001-1031-7107D70F3DB4}"
+$RKeyINVDE2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2564-0001-1031-7107D70F3DB4}"
 
 #Inventor English
 $RKeyINVENU2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2164-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2018 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2264-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2364-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2464-0001-1033-7107D70F3DB4}"
+$RKeyINVENU2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2564-0001-1033-7107D70F3DB4}"
 
 Function HideShow($Year) {
+    #Set Active Year
+    $YearButton = (Get-Variable -Name "WPFY$($Year)Tab").Value
+    $YearButton.IsChecked = $true
+
     #AutoCAD
     $RKeyACADDE = (Get-Variable -Name "RKeyACADDE$($Year)").Value
     $RKeyACADENU = (Get-Variable -Name "RKeyACADENU$($Year)").Value
@@ -194,6 +203,7 @@ Function OpenSoftware($SoftwareProduct, $language) {
     }
     elseif ($SoftwareProduct -eq "Inventor Read Only" -and $language -eq "Deutsch") {
         $SoftwareProduct = "Inventor"
+        $Addition = " Read Only"
         $exe = "InvRO.exe"
         $arguments = "/language=DEU"
         $sFolder = "\Bin\"
@@ -205,6 +215,7 @@ Function OpenSoftware($SoftwareProduct, $language) {
     }
     elseif ($SoftwareProduct -eq "Inventor Read Only" -and $language -eq "English") {
         $SoftwareProduct = "Inventor"
+        $Addition = " Read Only"
         $exe = "InvRO.exe"
         $arguments = "/language=ENU"
         $sFolder = "\Bin\"
@@ -223,17 +234,18 @@ Function OpenSoftware($SoftwareProduct, $language) {
     #AUTOCAD MECHANICAL
     elseif ($SoftwareProduct -eq "AutoCAD Mechanical" -and $language -eq "Deutsch") {
         $SoftwareProduct = "AutoCAD"
+        $Addition = " Mechanical"
         $exe = "acad.exe"
         $arguments = "/product ACADM /language de-DE"
         $sFolder = "\"
     }
     elseif ($SoftwareProduct -eq "AutoCAD Mechanical" -and $language -eq "English") {
         $SoftwareProduct = "AutoCAD"
+        $Addition = " Mechanical"
         $exe = "acad.exe"
         $arguments = "/product ACADM /language en-US"
         $sFolder = "\"
     }
-
     #endregion
     
     #Invoke Process
@@ -242,9 +254,9 @@ Function OpenSoftware($SoftwareProduct, $language) {
 
     Start-Process -FilePath $pHelp -ArgumentList $arguments
 
-    $WPFInfoText.Text = ("{0} {1} - {2} {3}" -f $SoftwareProduct, $global:ActiveYear, $language, "is loading." )
+    $WPFInfoText.Text = ("{0}{1} {2} - {3} {4}" -f $SoftwareProduct, $Addition, $global:ActiveYear, $language, "is loading." )
+    Write-Host $WPFInfoText.Text
     $WPFInfoDialog.IsOpen = $true  
-
 }
 
 function SetTheme($Themestr) {
@@ -294,7 +306,6 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object { "trying item $($_.Name)";
         Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name) -ErrorAction Stop 
         $wpfElement += (Get-Variable -Name "WPF$($_.Name)").Value
     }
-    
     catch { throw }
 }
 
@@ -306,7 +317,6 @@ Function Get-FormVariables {
 #Print foun variables 
 Get-FormVariables
 #endregion XAML Reader
-
 
 #region Icon and Image Source
 $Form.Icon = $PathShell + "\res\ADSKDashboard_Icon.png"
@@ -357,30 +367,56 @@ $WPFY2021Tab.Add_click( {
         Write-Host "2021"
         HideShow 2021
         $global:ActiveYear = "2021"
+        Update-Config
+        $WPFY2020Tab.IsChecked = $false
+        $WPFY2019Tab.IsChecked = $false
+        $WPFY2018Tab.IsChecked = $false
+        $WPFY2017Tab.IsChecked = $false
+
     })
 
 $WPFY2020Tab.Add_click( {
         Write-Host "2020"
         HideShow 2020
         $global:ActiveYear = "2020"
+        Update-Config
+        $WPFY2021Tab.IsChecked = $false
+        $WPFY2019Tab.IsChecked = $false
+        $WPFY2018Tab.IsChecked = $false
+        $WPFY2017Tab.IsChecked = $false
     })
 
 $WPFY2019Tab.Add_click( {
         Write-Host "2019"
         HideShow 2019
         $global:ActiveYear = "2019"
+        Update-Config
+        $WPFY2021Tab.IsChecked = $false
+        $WPFY2020Tab.IsChecked = $false
+        $WPFY2018Tab.IsChecked = $false
+        $WPFY2017Tab.IsChecked = $false
     })
 
 $WPFY2018Tab.Add_click( {
         Write-Host "2018"
         HideShow 2018
         $global:ActiveYear = "2018"
+        Update-Config
+        $WPFY2021Tab.IsChecked = $false
+        $WPFY2020Tab.IsChecked = $false
+        $WPFY2019Tab.IsChecked = $false
+        $WPFY2017Tab.IsChecked = $false
     })
 
 $WPFY2017Tab.Add_click( {
         Write-Host "2017"
         HideShow 2017
         $global:ActiveYear = "2017"
+        Update-Config
+        $WPFY2021Tab.IsChecked = $false
+        $WPFY2020Tab.IsChecked = $false
+        $WPFY2019Tab.IsChecked = $false
+        $WPFY2018Tab.IsChecked = $false
     })
 #endregion
 
@@ -413,7 +449,7 @@ $WPFACADENU_BT.Add_click( {
 $WPFACADMDE_BT.Add_click( {
         OpenSoftware "AutoCAD Mechanical" "Deutsch"
     })
-$WPFACADENU_BT.Add_click( {
+$WPFACADMENU_BT.Add_click( {
         OpenSoftware "AutoCAD Mechanical" "English"
     })
 
