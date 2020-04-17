@@ -1,6 +1,7 @@
 Clear-Host
 #Initialize
 [System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | out-null
+[System.Reflection.Assembly]::LoadWithPartialName('WindowsFormsIntegration') | out-null
 [System.Reflection.Assembly]::LoadWithPartialName('System.ComponentModel') | out-null
 [System.Reflection.Assembly]::LoadWithPartialName('System.Data') | out-null
 [System.Reflection.Assembly]::LoadWithPartialName('System.Drawing') | out-null
@@ -12,7 +13,6 @@ Clear-Host
 [System.Reflection.Assembly]::LoadFrom('res\assembly\MahApps.Metro.IconPacks.dll') | out-null
 
 # When compiled with PS2EXE the variable MyCommand contains no path anymore
-
 if ($MyInvocation.MyCommand.CommandType -eq "ExternalScript") {
     # Powershell script
     $PathShell = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
@@ -21,9 +21,6 @@ else {
     # PS2EXE compiled script
     $PathShell = Split-Path -Parent -Path ([Environment]::GetCommandLineArgs()[0])
 }
-
-#MARK YEAR that is activ
-#close to tray?
 
 ##############################################################
 #                Config                                      #
@@ -97,7 +94,6 @@ function Update-Config {
     #Export the updated config
     $Config | Export-Clixml -Path "$PathShell\res\settings\options.config"
 } #end function Update-Config
-
 
 #===========================================================================
 #                          Check for Installation
@@ -274,90 +270,123 @@ function SetTheme($Themestr) {
         [MahApps.Metro.ThemeManager]::ChangeAppStyle($Form, [MahApps.Metro.ThemeManager]::GetAccent("Cobalt"), $Theme.Item1);
     }
 }
+
+function InitializeAll {
+    # Icon and Image Source
+    $global:Form.Icon = $PathShell + "\res\ADSKDashboard_Icon.png"
+    $global:WPFY2021Tab_IMG.Source = $PathShell + "\res\YButton2021.png"
+    $global:WPFY2020Tab_IMG.Source = $PathShell + "\res\YButton2020.png"
+    $global:WPFY2019Tab_IMG.Source = $PathShell + "\res\YButton2019.png"
+    $global:WPFY2018Tab_IMG.Source = $PathShell + "\res\YButton2018.png"
+    $global:WPFY2017Tab_IMG.Source = $PathShell + "\res\YButton2017.png"
+
+    $global:WPFINVDE_IMG.Source = $PathShell + "\res\Inventor_DE.png"
+    $global:WPFINVENU_IMG.Source = $PathShell + "\res\Inventor_ENU.png"
+    $global:WPFINVRODE_IMG.Source = $PathShell + "\res\Inventor_DE.png"
+    $global:WPFINVROENU_IMG.Source = $PathShell + "\res\Inventor_ENU.png"
+
+    $global:WPFACADDE_IMG.Source = $PathShell + "\res\AutoCAD_DE.png"
+    $global:WPFACADENU_IMG.Source = $PathShell + "\res\AutoCAD_ENU.png"
+
+    $global:WPFACADMDE_IMG.Source = $PathShell + "\res\AutoCAD_DE.png"
+    $global:WPFACADMENU_IMG.Source = $PathShell + "\res\AutoCAD_ENU.png"
+
+    #Hide all at start
+    foreach ($item in $wpfElement) {
+        if ($item.name -like "*_BT") {
+            $item.Visibility = "hidden"
+        }
+    }
+
+    #Initialize / Import config
+    Import-Config
+
+    if ($global:ActiveYear -eq "2021")
+    { HideShow 2021 }
+    if ($global:ActiveYear -eq "2020")
+    { HideShow 2020 }
+    elseif ($global:ActiveYear -eq "2019")
+    { HideShow 2019 }
+    elseif ($global:ActiveYear -eq "2018")
+    { HideShow 2018 }
+    elseif ($global:ActiveYear -eq "2017") 
+    { HideShow 2017 }
+}
+
+#===========================================================================
+#                            Systray Region
+#===========================================================================
+
+# Add the systray icon 
+$Main_Tool_Icon = New-Object System.Windows.Forms.NotifyIcon
+$Main_Tool_Icon.Text = "ADSK Dashboard"
+$Main_Tool_Icon.Icon = $PathShell + "\res\ADSKDashboard_Icon.ico"
+$Main_Tool_Icon.Visible = $true
+
+# Garbage Collection
+[System.GC]::Collect()
+
+# Add menu exit
+$Menu_Exit = New-Object System.Windows.Forms.MenuItem
+$Menu_Exit.Text = "Exit"
+
+# Add all menus as context menus
+$contextmenu = New-Object System.Windows.Forms.ContextMenu
+$Main_Tool_Icon.ContextMenu = $contextmenu
+$Main_Tool_Icon.contextMenu.MenuItems.AddRange($Menu_Exit)
+
 #===========================================================================
 #                            XAML Reader Region
 #===========================================================================
 
 #region XAML Reader
-
-# where is the XAML file?
-#$xamlFile = $path + "\res\MainWindow.xaml"
-$xamlFile = "H:\Dropbox (Data)\TWIProgrammierung\Autodesk\ADSKDashboard\ADSKDashboard\MainWindow.xaml"
-$inputXML = Get-Content $xamlFile -Raw
-$inputXML = $inputXML -replace 'mc:Ignorable="d"', '' -replace "x:N", 'N' -replace '^<Win.*', '<Window'
-[void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
-[xml]$XAML = $inputXML
-#Read XAML
+Function ReadXAML {
+    # where is the XAML file?
+    #$xamlFile = $path + "\res\MainWindow.xaml"
+    $xamlFile = "H:\Dropbox (Data)\TWIProgrammierung\Autodesk\ADSKDashboard\ADSKDashboard\MainWindow.xaml"
+    $inputXML = Get-Content $xamlFile -Raw
+    $inputXML = $inputXML -replace 'mc:Ignorable="d"', '' -replace "x:N", 'N' -replace '^<Win.*', '<Window'
+    [void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
+    [xml]$XAML = $inputXML
+    #Read XAML
  
-$reader = (New-Object System.Xml.XmlNodeReader $xaml)
-try {
-    $Form = [Windows.Markup.XamlReader]::Load( $reader )
-}
-catch {
-    Write-Warning "Unable to parse XML, with error: $($Error[0])`n Ensure that there are NO SelectionChanged or TextChanged properties in your textboxes (PowerShell cannot process them)"
-    throw
-}
-#===========================================================================
-# Load XAML Objects In PowerShell
-#===========================================================================
-$wpfElement = @()
-$xaml.SelectNodes("//*[@Name]") | ForEach-Object { "trying item $($_.Name)";
+    $reader = (New-Object System.Xml.XmlNodeReader $xaml)
     try {
-        Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name) -ErrorAction Stop 
-        $wpfElement += (Get-Variable -Name "WPF$($_.Name)").Value
+        $global:Form = [Windows.Markup.XamlReader]::Load( $reader )
     }
-    catch { throw }
-}
-
-Function Get-FormVariables {
-    if ($global:ReadmeDisplay -ne $true) { Write-host "If you need to reference this display again, run Get-FormVariables" -ForegroundColor Yellow; $global:ReadmeDisplay = $true }
-    write-host "Found the following interactable elements from our form" -ForegroundColor Cyan
-    get-variable WPF*
-}
-#Print foun variables 
-Get-FormVariables
-#endregion XAML Reader
-
-#region Icon and Image Source
-$Form.Icon = $PathShell + "\res\ADSKDashboard_Icon.png"
-$WPFY2021Tab_IMG.Source = $PathShell + "\res\YButton2021.png"
-$WPFY2020Tab_IMG.Source = $PathShell + "\res\YButton2020.png"
-$WPFY2019Tab_IMG.Source = $PathShell + "\res\YButton2019.png"
-$WPFY2018Tab_IMG.Source = $PathShell + "\res\YButton2018.png"
-$WPFY2017Tab_IMG.Source = $PathShell + "\res\YButton2017.png"
-
-$WPFINVDE_IMG.Source = $PathShell + "\res\Inventor_DE.png"
-$WPFINVENU_IMG.Source = $PathShell + "\res\Inventor_ENU.png"
-$WPFINVRODE_IMG.Source = $PathShell + "\res\Inventor_DE.png"
-$WPFINVROENU_IMG.Source = $PathShell + "\res\Inventor_ENU.png"
-
-$WPFACADDE_IMG.Source = $PathShell + "\res\AutoCAD_DE.png"
-$WPFACADENU_IMG.Source = $PathShell + "\res\AutoCAD_ENU.png"
-
-$WPFACADMDE_IMG.Source = $PathShell + "\res\AutoCAD_DE.png"
-$WPFACADMENU_IMG.Source = $PathShell + "\res\AutoCAD_ENU.png"
-
-#Hide all at start
-foreach ($item in $wpfElement) {
-    if ($item.name -like "*_BT") {
-        $item.Visibility = "hidden"
+    catch {
+        Write-Warning "Unable to parse XML, with error: $($Error[0])`n Ensure that there are NO SelectionChanged or TextChanged properties in your textboxes (PowerShell cannot process them)"
+        throw
     }
+    #===========================================================================
+    # Load XAML Objects In PowerShell
+    #===========================================================================
+    $global:wpfElement = @()
+    $xaml.SelectNodes("//*[@Name]") | ForEach-Object { "trying item $($_.Name)";
+        try {
+            Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name) -ErrorAction Stop -Scope global
+            $global:wpfElement += (Get-Variable -Name "WPF$($_.Name)").Value
+            Write-Host "WPF$($_.Name)"
+        }
+        catch { throw }
+    }
+
+    Function Get-FormVariables {
+        if ($global:ReadmeDisplay -ne $true) { Write-host "If you need to reference this display again, run Get-FormVariables" -ForegroundColor Yellow; $global:ReadmeDisplay = $true }
+        write-host "Found the following interactable elements from our form" -ForegroundColor Cyan
+        get-variable $global:WPF*
+    }
+    #Print foun variables 
+    Get-FormVariables
+    #endregion XAML Reader
 }
-#endregion
 
-#Initialize / Import config
-Import-Config
+#Read XAML File
+ReadXAML
+#Get-Variable -Scope global
 
-if ($global:ActiveYear -eq "2021")
-{ HideShow 2021 }
-if ($global:ActiveYear -eq "2020")
-{ HideShow 2020 }
-elseif ($global:ActiveYear -eq "2019")
-{ HideShow 2019 }
-elseif ($global:ActiveYear -eq "2018")
-{ HideShow 2018 }
-elseif ($global:ActiveYear -eq "2017") 
-{ HideShow 2017 }
+#Load some things
+InitializeAll
 
 #===========================================================================
 #                            Button Click Events
@@ -492,4 +521,32 @@ $WPFThemeSwitch.Add_Click( {
         }
     })
 
-$Form.ShowDialog() | out-null
+$Form.Add_closing( {
+        Write-Host "CLOSE"
+        $Form.Hide()
+    })
+
+#===========================================================================
+#                                 Show GUI
+#===========================================================================
+
+$WPFClose.Add_Click( {
+        $Form.Hide()
+    })
+
+$Menu_Exit.Add_click( {
+        $Main_Tool_Icon.Visible = $false
+        $Form.Close()
+        Stop-Process $pid
+    })
+
+# Action after a click on the main systray icon
+$Main_Tool_Icon.Add_Click( {     
+        $Form.ShowDialog()
+    })
+
+$Form.ShowDialog()
+
+#Keep it alive while closed to systray
+$appContext = New-Object System.Windows.Forms.ApplicationContext 
+[void][System.Windows.Forms.Application]::Run($appContext)
