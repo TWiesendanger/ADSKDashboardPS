@@ -8,7 +8,7 @@ Currently it works for AutoCAD / AutoCAD Mechanical / Inventor / Inventor Read O
 
 # Tool does not start!
 
-[Have a look here](https://github.com/TWiesendanger/ADSKLincensingModify#tool-doesnt-start)
+[Have a look here](https://github.com/TWiesendanger/ADSKDashboardPS#tool-doesnt-start)
 
 # Table of Contents
 
