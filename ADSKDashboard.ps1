@@ -205,7 +205,7 @@ Function OpenSoftware($SoftwareProduct, $language) {
         $sFolder = "\Bin\"
     }
     elseif ($SoftwareProduct -eq "Inventor" -and $language -eq "English") {
-        $exe = "InvRO.exe"
+        $exe = "Inventor.exe"
         $arguments = "/language=ENU"
         $sFolder = "\Bin\"
     }
@@ -342,8 +342,8 @@ $Main_Tool_Icon.contextMenu.MenuItems.AddRange($Menu_Exit)
 #region XAML Reader
 Function ReadXAML {
     # where is the XAML file?
-    #$xamlFile = $path + "\res\MainWindow.xaml"
-    $xamlFile = "H:\Dropbox (Data)\TWIProgrammierung\Autodesk\ADSKDashboard\ADSKDashboard\MainWindow.xaml"
+    $xamlFile = $PathShell + "\res\MainWindow.xaml"
+    #$xamlFile = "H:\Dropbox (Data)\TWIProgrammierung\Autodesk\ADSKDashboard\ADSKDashboard\MainWindow.xaml"
     $inputXML = Get-Content $xamlFile -Raw
     $inputXML = $inputXML -replace 'mc:Ignorable="d"', '' -replace "x:N", 'N' -replace '^<Win.*', '<Window'
     [void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
