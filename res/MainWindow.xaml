@@ -54,6 +54,7 @@
                             <TextBlock TextDecorations="Underline" Margin="5,0,0,0">Other</TextBlock>
                     </Label>
                         <Controls:ToggleSwitch x:Name="OnTop"  OnLabel="Always on Top" OffLabel="Always on Top" Width="175" Height="45" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                        <Controls:ToggleSwitch x:Name="AutoClose"  OnLabel="Auto Close On" OffLabel="Auto Close Off" Width="175" Height="45" HorizontalAlignment="Left" Margin="10,0,0,0"/>
                     </StackPanel>
                 </StackPanel>
             </Controls:Flyout>
