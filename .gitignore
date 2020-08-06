@@ -1,6 +1,7 @@
 res/YearButtons.psd
 res/Logo_Creation.psd
 Systray.ps1
-v0.9 ADSKDashboard.zip
-v0.91 ADSKDashboard.zip
+*.zip
 docs/exe_settings.png
+BuildScript.ps1
+
