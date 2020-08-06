@@ -22,6 +22,15 @@ else {
     $PathShell = Split-Path -Parent -Path ([Environment]::GetCommandLineArgs()[0])
 }
 
+# get ADSKDashboard process
+# Check if an instance is already running / if yes kill it and start new / didnt found a way to get the instance and maximize
+$ADSKDashboard = Get-Process ADSKDashboard -ErrorAction SilentlyContinue
+
+if ($ADSKDashboard) {
+    Write-Host "Already Running!"
+    Stop-Process $ADSKDashboard
+}
+
 ##############################################################
 #                Config                                      #
 ##############################################################
@@ -35,8 +44,9 @@ function New-Config {
     #Creates hash table and .clixml config file
     $Config = @{
         'ActiveYear'    = "2020"
-        'AlwaysOnTop'   = $false
+        'Always'        = $false
         'ThemeProperty' = "LightTheme"
+        'AutoClose'     = $true
     }
     $Config | Export-Clixml -Path "$PathShell\res\settings\options.config"
     Import-Config
@@ -52,8 +62,9 @@ function Import-Config {
 			
             #Creates global variables for each config property and sets their values
             $global:ActiveYear = $Config.ActiveYear
-            $global:AlwaysOnTop = $Config.AlwaysOnTop
+            $global:Always = $Config.Always
             $global:ThemeProperty = $Config.ThemeProperty
+            $global:AutoClose = $Config.AutoClose
             
             #Set Properties depending on Optionfile
             if ($global:ThemeProperty -eq "DarkTheme") {
@@ -65,7 +76,7 @@ function Import-Config {
                 SetTheme("LightTheme")
             }
 
-            if ($global:AlwaysOnTop -eq $true) {
+            if ($global:Always -eq $true) {
                 $Form.Topmost = $true
                 $WPFOnTop.IsChecked = $true
             }
@@ -73,6 +84,14 @@ function Import-Config {
                 $Form.Topmost = $false
                 $WPFOnTop.IsChecked = $false
             }
+            
+            if ($global:AutoClose -eq $true) {
+                $WPFAutoClose.IsChecked = $true
+            }
+            else {
+                $WPFAutoClose.IsChecked = $false
+            }
+
         }
         catch {
             [System.Windows.Forms.MessageBox]::Show("An error occurred importing your Config file. A new Config file will be generated for you. $_", 'Import Config Error', 'OK', 'Error')
@@ -89,7 +108,8 @@ function Update-Config {
     $Config = @{
         'ActiveYear'    = $global:ActiveYear
         'ThemeProperty' = $global:ThemeProperty
-        'AlwaysOnTop'   = $global:AlwaysOnTop
+        'Always'        = $global:Always
+        'AutoClose'     = $global:AutoClose
     }
     #Export the updated config
     $Config | Export-Clixml -Path "$PathShell\res\settings\options.config"
@@ -170,7 +190,12 @@ Function HideShow($Year) {
     #Inventor / Inventor Read Only
     if ($RKeyINVDE) { 
         $WPFINVDE_BT.Visibility = "visible"
-        $WPFINVRODE_BT.Visibility = "visible" 
+        if ($Year -gt 2019) {
+            $WPFINVRODE_BT.Visibility = "visible" 
+        }
+        else {
+            $WPFINVRODE_BT.Visibility = "hidden"  
+        }
     }
     else { 
         $WPFINVDE_BT.Visibility = "hidden"
@@ -179,7 +204,12 @@ Function HideShow($Year) {
             
     if ($RKeyINVENU) {
         $WPFINVENU_BT.Visibility = "visible"
-        $WPFINVROENU_BT.Visibility = "visible"
+        if ($Year -gt 2019) {
+            $WPFINVROENU_BT.Visibility = "visible"
+        }
+        else {
+            $WPFINVROENU_BT.Visibility = "hidden"
+        }
     }
     else {
         $WPFINVENU_BT.Visibility = "hidden" 
@@ -191,7 +221,7 @@ Function OpenSoftware($SoftwareProduct, $language) {
 
     #region set parameter for string
 
-    #INVENTOR and INVENTOR READ ONLY
+    # INVENTOR and INVENTOR READ ONLY
     if ($SoftwareProduct -eq "Inventor" -and $language -eq "Deutsch") {
         $exe = "Inventor.exe"
         $arguments = "/language=DEU"
@@ -216,7 +246,7 @@ Function OpenSoftware($SoftwareProduct, $language) {
         $arguments = "/language=ENU"
         $sFolder = "\Bin\"
     }
-    #AUTOCAD
+    # AUTOCAD
     elseif ($SoftwareProduct -eq "AutoCAD" -and $language -eq "Deutsch") {
         $exe = "acad.exe"
         $arguments = "/product ACAD /language de-DE"
@@ -227,7 +257,7 @@ Function OpenSoftware($SoftwareProduct, $language) {
         $arguments = "/product ACAD /language en-US"
         $sFolder = "\"
     }
-    #AUTOCAD MECHANICAL
+    # AUTOCAD MECHANICAL
     elseif ($SoftwareProduct -eq "AutoCAD Mechanical" -and $language -eq "Deutsch") {
         $SoftwareProduct = "AutoCAD"
         $Addition = " Mechanical"
@@ -244,11 +274,15 @@ Function OpenSoftware($SoftwareProduct, $language) {
     }
     #endregion
     
-    #Invoke Process
+    # Invoke Process
     $pHelp = "C:\Program Files\Autodesk\" + $SoftwareProduct + " " + $global:ActiveYear + $sFolder + $exe 
     Write-Host "Starting Process: " + $pHelp + "with the following arguments: " + $arguments
 
     Start-Process -FilePath $pHelp -ArgumentList $arguments
+    # Hide the form after opening of product
+    if ($WPFAutoClose.IsChecked -eq $true) {
+        $Form.Hide()
+    }
 
     $WPFInfoText.Text = ("{0}{1} {2} - {3} {4}" -f $SoftwareProduct, $Addition, $global:ActiveYear, $language, "is loading." )
     Write-Host $WPFInfoText.Text
@@ -499,12 +533,23 @@ $WPFHelpButton.Add_click( {
 $WPFOnTop.Add_click( {
         if ($WPFOnTop.IsChecked -eq $true) {
             $Form.Topmost = $true
-            $global:AlwaysOnTop = $true
+            $global:Always = $true
             Update-Config
         }
         else {
             $Form.Topmost = $false
-            $global:AlwaysOnTop = $false
+            $global:Always = $false
+            Update-Config
+        }
+    })
+
+$WPFAutoClose.Add_click( {
+        if ($WPFAutoClose.IsChecked -eq $true) {
+            $global:AutoClose = $true
+            Update-Config
+        }
+        else {
+            $global:AutoClose = $false
             Update-Config
         }
     })
@@ -543,9 +588,19 @@ $Menu_Exit.Add_click( {
 # Action after a click on the main systray icon
 $Main_Tool_Icon.Add_Click( {     
         $Form.ShowDialog()
+        $Form.Activate() 
+    })
+
+# Close the Form GUI if it loses focus
+$Form.Add_Deactivated( {
+        $Form.Hide()
     })
 
 $Form.ShowDialog()
+try {
+    $Form.Activate()
+}
+catch { }
 
 #Keep it alive while closed to systray
 $appContext = New-Object System.Windows.Forms.ApplicationContext 
