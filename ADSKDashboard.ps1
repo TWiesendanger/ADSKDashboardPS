@@ -1,4 +1,23 @@
-Clear-Host
+# get ADSKDashboard process
+# Check if an instance is already running / if yes kill it and start new / didnt found a way to get the instance and maximize
+$ADSKDashboard = Get-Process ADSKDashboard* -ErrorAction SilentlyContinue
+Write-Host $ADSKDashboard.Id
+if ($ADSKDashboard.Length -gt 1) {
+    Write-Host "Already Running!"
+
+    $ButtonType = [System.Windows.Forms.MessageBoxButtons]::OK
+
+    $MessageIcon = [System.Windows.Forms.MessageBoxIcon]::Information
+
+    $MessageBody = "Already Running!"
+
+    $MessageTitle = "Error"
+
+    $Result = [System.Windows.Forms.MessageBox]::Show($MessageBody, $MessageTitle, $ButtonType, $MessageIcon)
+
+    exit
+}
+
 #Initialize
 [System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | out-null
 [System.Reflection.Assembly]::LoadWithPartialName('WindowsFormsIntegration') | out-null
@@ -20,15 +39,6 @@ if ($MyInvocation.MyCommand.CommandType -eq "ExternalScript") {
 else {
     # PS2EXE compiled script
     $PathShell = Split-Path -Parent -Path ([Environment]::GetCommandLineArgs()[0])
-}
-
-# get ADSKDashboard process
-# Check if an instance is already running / if yes kill it and start new / didnt found a way to get the instance and maximize
-$ADSKDashboard = Get-Process ADSKDashboard -ErrorAction SilentlyContinue
-
-if ($ADSKDashboard) {
-    Write-Host "Already Running!"
-    Stop-Process $ADSKDashboard
 }
 
 ##############################################################
