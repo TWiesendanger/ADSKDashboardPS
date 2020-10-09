@@ -603,7 +603,10 @@ $Main_Tool_Icon.Add_Click( {
 
 # Close the Form GUI if it loses focus
 $Form.Add_Deactivated( {
-        $Form.Hide()
+
+        if ($global:AutoClose -eq $true) {
+            $Form.Hide()
+        }
     })
 
 $Form.ShowDialog()

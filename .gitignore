@@ -6,3 +6,4 @@ docs/exe_settings.png
 BuildScript.ps1
 **/.vscode
 
+*.log
