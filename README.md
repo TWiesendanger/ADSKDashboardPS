@@ -6,6 +6,8 @@ If you have multiple Autodeskproducts in diffrent releases and languages install
 
 Currently it works for AutoCAD / AutoCAD Mechanical / Inventor / Inventor Read Only from Release 2017 to 2021.
 
+# Update v0.93
+- updated to scan for 2022 products
 # Update v0.92
 - Fixed a bug that did show ReadOnly for Version that do not have ReadOnly
 - Auto Close Function (After opening something, it closes down automatically)
@@ -17,6 +19,7 @@ Currently it works for AutoCAD / AutoCAD Mechanical / Inventor / Inventor Read O
 # Table of Contents
 
 - [ADSKDashboard](#adskdashboard)
+- [Update v0.93](#update-v093)
 - [Update v0.92](#update-v092)
 - [Tool does not start!](#tool-does-not-start)
 - [Table of Contents](#table-of-contents)
