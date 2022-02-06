@@ -176,6 +176,7 @@ $RKeyINVENU2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uni
 $RKeyINVENU2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2464-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2564-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2022 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{118C5CF4-9979-3199-80DA-9198A86DCCA5}"
+$RKeyINVENU2022_2 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2664-0001-1033-7107D70F3DB4}"
 
 Function HideShow($Year) {
     #Set Active Year
@@ -189,6 +190,17 @@ Function HideShow($Year) {
     $RKeyACADMENU = (Get-Variable -Name "RKeyACADMENU$($Year)").Value
     $RKeyINVDE = (Get-Variable -Name "RKeyINVDE$($Year)").Value
     $RKeyINVENU = (Get-Variable -Name "RKeyINVENU$($Year)").Value
+
+    if ($year -eq "2022" -and $RKeyINVENU -eq $false ) {
+        # there are servicepack languagepacks that need to be detected
+        # so if there isnt a languagepack found for the base installation look for the patches
+        $RKeyINVENU = (Get-Variable -Name "RKeyINVENU$($Year)_2").Value
+    }
+    if ($year -eq "2022" -and $RKeyINVDE -eq $false ) {
+        # there are servicepack languagepacks that need to be detected
+        # so if there isnt a languagepack found for the base installation look for the patches
+        $RKeyINVDE = (Get-Variable -Name "RKeyINVDE$($Year)_2").Value
+    }
 
     if ($RKeyACADDE) { $WPFACADDE_BT.Visibility = "visible" }
     else { $WPFACADDE_BT.Visibility = "hidden" }
@@ -446,17 +458,17 @@ InitializeAll
 #===========================================================================
 #region Tabs
 $WPFY2022Tab.Add_click( {
-    Write-Host "2022"
-    HideShow 2022
-    $global:ActiveYear = "2022"
-    Update-Config
-    $WPFY2021Tab.IsChecked = $false
-    $WPFY2020Tab.IsChecked = $false
-    $WPFY2019Tab.IsChecked = $false
-    $WPFY2018Tab.IsChecked = $false
-    $WPFY2017Tab.IsChecked = $false
+        Write-Host "2022"
+        HideShow 2022
+        $global:ActiveYear = "2022"
+        Update-Config
+        $WPFY2021Tab.IsChecked = $false
+        $WPFY2020Tab.IsChecked = $false
+        $WPFY2019Tab.IsChecked = $false
+        $WPFY2018Tab.IsChecked = $false
+        $WPFY2017Tab.IsChecked = $false
 
-})
+    })
 $WPFY2021Tab.Add_click( {
         Write-Host "2021"
         HideShow 2021
