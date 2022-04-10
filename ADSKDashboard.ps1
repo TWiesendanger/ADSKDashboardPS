@@ -4,17 +4,11 @@ $ADSKDashboard = Get-Process ADSKDashboard* -ErrorAction SilentlyContinue
 Write-Host $ADSKDashboard.Id
 if ($ADSKDashboard.Length -gt 1) {
     Write-Host "Already Running!"
-
     $ButtonType = [System.Windows.Forms.MessageBoxButtons]::OK
-
     $MessageIcon = [System.Windows.Forms.MessageBoxIcon]::Information
-
     $MessageBody = "Already Running!"
-
     $MessageTitle = "Error"
-
     $Result = [System.Windows.Forms.MessageBox]::Show($MessageBody, $MessageTitle, $ButtonType, $MessageIcon)
-
     exit
 }
 
@@ -53,7 +47,7 @@ function New-Config {
     #Setup default preferences	
     #Creates hash table and .clixml config file
     $Config = @{
-        'ActiveYear'    = "2022"
+        'ActiveYear'    = "2023"
         'Always'        = $false
         'ThemeProperty' = "LightTheme"
         'AutoClose'     = $true
@@ -130,53 +124,59 @@ function Update-Config {
 #===========================================================================
 
 #AutoCAD German
-$RKeyACADDE2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-0001-0407-1102-CF3F3A09B77D}"
+# $RKeyACADDE2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-0001-0407-1102-CF3F3A09B77D}"
 $RKeyACADDE2018 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-1001-0407-1102-CF3F3A09B77D}"
 $RKeyACADDE2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-2001-0407-1102-CF3F3A09B77D}"
 $RKeyACADDE2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-3001-0407-1102-CF3F3A09B77D}"
 $RKeyACADDE2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-4101-0407-1102-CF3F3A09B77D}"
 $RKeyACADDE2022 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-5101-0407-1102-CF3F3A09B77D}"
+$RKeyACADDE2023 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-6101-0407-2102-CF3F3A09B77D}"
 
 #AutoCAD English
-$RKeyACADENU2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-0001-0409-1102-CF3F3A09B77D}"
+# $RKeyACADENU2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-0001-0409-1102-CF3F3A09B77D}"
 $RKeyACADENU2018 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-1001-0409-1102-CF3F3A09B77D}"
 $RKeyACADENU2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-2001-0409-1102-CF3F3A09B77D}" 
 $RKeyACADENU2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-3001-0409-1102-CF3F3A09B77D}"
 $RKeyACADENU2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-4101-0409-1102-CF3F3A09B77D}"
 $RKeyACADENU2022 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-5101-0409-1102-CF3F3A09B77D}"
+$RKeyACADENU2023 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-6101-0409-2102-CF3F3A09B77D}"
 
 #AutoCAD Mechanical German
-$RKeyACADMDE2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-0005-0407-1102-CF3F3A09B77D}"
+# $RKeyACADMDE2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-0005-0407-1102-CF3F3A09B77D}"
 $RKeyACADMDE2018 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-1005-0407-1102-CF3F3A09B77D}"
 $RKeyACADMDE2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-2005-0407-1102-CF3F3A09B77D}" 
 $RKeyACADMDE2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-3005-0407-1102-CF3F3A09B77D}"
 $RKeyACADMDE2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-4105-0407-1102-CF3F3A09B77D}"
 $RKeyACADMDE2022 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-5105-0407-2102-CF3F3A09B77D}"
+$RKeyACADMDE2023 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-6105-0407-2102-CF3F3A09B77D}"
 
 #AutoCAD Mechanical English 
-$RKeyACADMENU2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-0005-0409-1102-CF3F3A09B77D}"
+# $RKeyACADMENU2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-0005-0409-1102-CF3F3A09B77D}"
 $RKeyACADMENU2018 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-1005-0409-1102-CF3F3A09B77D}"
 $RKeyACADMENU2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-2005-0409-1102-CF3F3A09B77D}"
 $RKeyACADMENU2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-3005-0409-1102-CF3F3A09B77D}"
 $RKeyACADMENU2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-4105-0409-1102-CF3F3A09B77D}"
 $RKeyACADMENU2022 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-5105-0409-2102-CF3F3A09B77D}"
+$RKeyACADMENU2023 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{28B89EEF-6105-0409-2102-CF3F3A09B77D}"
 
 #Inventor German
-$RKeyINVDE2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2164-0001-1031-7107D70F3DB4}"
+# $RKeyINVDE2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2164-0001-1031-7107D70F3DB4}"
 $RKeyINVDE2018 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2264-0001-1031-7107D70F3DB4}"
 $RKeyINVDE2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2364-0001-1031-7107D70F3DB4}"
 $RKeyINVDE2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2464-0001-1031-7107D70F3DB4}"
 $RKeyINVDE2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2564-0001-1031-7107D70F3DB4}"
 $RKeyINVDE2022 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{1752579C-F9B1-37F2-ACC4-CA7FC070AF54}"
+$RKeyINVDE2023 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2764-0001-1031-7107D70F3DB4}"
 
 #Inventor English
-$RKeyINVENU2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2164-0001-1033-7107D70F3DB4}"
+# $RKeyINVENU2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2164-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2018 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2264-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2364-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2464-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2564-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2022 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{118C5CF4-9979-3199-80DA-9198A86DCCA5}"
 $RKeyINVENU2022_2 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2664-0001-1033-7107D70F3DB4}"
+$RKeyINVENU2023 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2764-0001-1033-7107D70F3DB4}"
 
 Function HideShow($Year) {
     #Set Active Year
@@ -336,12 +336,13 @@ function SetTheme($Themestr) {
 function InitializeAll {
     # Icon and Image Source
     $global:Form.Icon = $PathShell + "\res\ADSKDashboard_Icon.png"
+    $global:WPFY2023Tab_IMG.Source = $PathShell + "\res\YButton2023.png"
     $global:WPFY2022Tab_IMG.Source = $PathShell + "\res\YButton2022.png"
     $global:WPFY2021Tab_IMG.Source = $PathShell + "\res\YButton2021.png"
     $global:WPFY2020Tab_IMG.Source = $PathShell + "\res\YButton2020.png"
     $global:WPFY2019Tab_IMG.Source = $PathShell + "\res\YButton2019.png"
     $global:WPFY2018Tab_IMG.Source = $PathShell + "\res\YButton2018.png"
-    $global:WPFY2017Tab_IMG.Source = $PathShell + "\res\YButton2017.png"
+    # $global:WPFY2017Tab_IMG.Source = $PathShell + "\res\YButton2017.png"
 
     $global:WPFINVDE_IMG.Source = $PathShell + "\res\Inventor_DE.png"
     $global:WPFINVENU_IMG.Source = $PathShell + "\res\Inventor_ENU.png"
@@ -364,18 +365,20 @@ function InitializeAll {
     #Initialize / Import config
     Import-Config
 
-    if ($global:ActiveYear -eq "2022")
+    if ($global:ActiveYear -eq "2023")
+    { HideShow 2023 }
+    elseif ($global:ActiveYear -eq "2022")
     { HideShow 2022 }
-    if ($global:ActiveYear -eq "2021")
+    elseif ($global:ActiveYear -eq "2021")
     { HideShow 2021 }
-    if ($global:ActiveYear -eq "2020")
+    elseif ($global:ActiveYear -eq "2020")
     { HideShow 2020 }
     elseif ($global:ActiveYear -eq "2019")
     { HideShow 2019 }
     elseif ($global:ActiveYear -eq "2018")
     { HideShow 2018 }
-    elseif ($global:ActiveYear -eq "2017") 
-    { HideShow 2017 }
+    # elseif ($global:ActiveYear -eq "2017") 
+    # { HideShow 2017 }
 }
 
 #===========================================================================
@@ -457,16 +460,30 @@ InitializeAll
 #                            Button Click Events
 #===========================================================================
 #region Tabs
+$WPFY2023Tab.Add_click( {
+        Write-Host "2023"
+        HideShow 2023
+        $global:ActiveYear = "2023"
+        Update-Config
+        $WPFY2022Tab.IsChecked = $false
+        $WPFY2021Tab.IsChecked = $false
+        $WPFY2020Tab.IsChecked = $false
+        $WPFY2019Tab.IsChecked = $false
+        $WPFY2018Tab.IsChecked = $false
+        # $WPFY2017Tab.IsChecked = $false
+
+    })
 $WPFY2022Tab.Add_click( {
         Write-Host "2022"
         HideShow 2022
         $global:ActiveYear = "2022"
         Update-Config
+        $WPFY2023Tab.IsChecked = $false
         $WPFY2021Tab.IsChecked = $false
         $WPFY2020Tab.IsChecked = $false
         $WPFY2019Tab.IsChecked = $false
         $WPFY2018Tab.IsChecked = $false
-        $WPFY2017Tab.IsChecked = $false
+        # $WPFY2017Tab.IsChecked = $false
 
     })
 $WPFY2021Tab.Add_click( {
@@ -474,11 +491,12 @@ $WPFY2021Tab.Add_click( {
         HideShow 2021
         $global:ActiveYear = "2021"
         Update-Config
+        $WPFY2023Tab.IsChecked = $false
         $WPFY2022Tab.IsChecked = $false
         $WPFY2020Tab.IsChecked = $false
         $WPFY2019Tab.IsChecked = $false
         $WPFY2018Tab.IsChecked = $false
-        $WPFY2017Tab.IsChecked = $false
+        # $WPFY2017Tab.IsChecked = $false
 
     })
 
@@ -487,11 +505,12 @@ $WPFY2020Tab.Add_click( {
         HideShow 2020
         $global:ActiveYear = "2020"
         Update-Config
+        $WPFY2023Tab.IsChecked = $false
         $WPFY2022Tab.IsChecked = $false
         $WPFY2021Tab.IsChecked = $false
         $WPFY2019Tab.IsChecked = $false
         $WPFY2018Tab.IsChecked = $false
-        $WPFY2017Tab.IsChecked = $false
+        # $WPFY2017Tab.IsChecked = $false
     })
 
 $WPFY2019Tab.Add_click( {
@@ -499,11 +518,12 @@ $WPFY2019Tab.Add_click( {
         HideShow 2019
         $global:ActiveYear = "2019"
         Update-Config
+        $WPFY2023Tab.IsChecked = $false
         $WPFY2022Tab.IsChecked = $false
         $WPFY2021Tab.IsChecked = $false
         $WPFY2020Tab.IsChecked = $false
         $WPFY2018Tab.IsChecked = $false
-        $WPFY2017Tab.IsChecked = $false
+        # $WPFY2017Tab.IsChecked = $false
     })
 
 $WPFY2018Tab.Add_click( {
@@ -511,24 +531,26 @@ $WPFY2018Tab.Add_click( {
         HideShow 2018
         $global:ActiveYear = "2018"
         Update-Config
+        $WPFY2023Tab.IsChecked = $false
         $WPFY2022Tab.IsChecked = $false
         $WPFY2021Tab.IsChecked = $false
         $WPFY2020Tab.IsChecked = $false
         $WPFY2019Tab.IsChecked = $false
-        $WPFY2017Tab.IsChecked = $false
+        # $WPFY2017Tab.IsChecked = $false
     })
 
-$WPFY2017Tab.Add_click( {
-        Write-Host "2017"
-        HideShow 2017
-        $global:ActiveYear = "2017"
-        Update-Config
-        $WPFY2022Tab.IsChecked = $false
-        $WPFY2021Tab.IsChecked = $false
-        $WPFY2020Tab.IsChecked = $false
-        $WPFY2019Tab.IsChecked = $false
-        $WPFY2018Tab.IsChecked = $false
-    })
+# $WPFY2017Tab.Add_click( {
+#         Write-Host "2017"
+#         HideShow 2017
+#         $global:ActiveYear = "2017"
+#         Update-Config
+#         $WPFY2023Tab.IsChecked = $false
+#         $WPFY2022Tab.IsChecked = $false
+#         $WPFY2021Tab.IsChecked = $false
+#         $WPFY2020Tab.IsChecked = $false
+#         $WPFY2019Tab.IsChecked = $false
+#         # $WPFY2018Tab.IsChecked = $false
+#     })
 #endregion
 
 #region Software Buttons
