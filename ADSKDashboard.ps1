@@ -13,17 +13,17 @@ if ($ADSKDashboard.Length -gt 1) {
 }
 
 #Initialize
-[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | out-null
-[System.Reflection.Assembly]::LoadWithPartialName('WindowsFormsIntegration') | out-null
-[System.Reflection.Assembly]::LoadWithPartialName('System.ComponentModel') | out-null
-[System.Reflection.Assembly]::LoadWithPartialName('System.Data') | out-null
-[System.Reflection.Assembly]::LoadWithPartialName('System.Drawing') | out-null
-[System.Reflection.Assembly]::LoadWithPartialName('presentationframework') | out-null
+[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms') | Out-Null
+[System.Reflection.Assembly]::LoadWithPartialName('WindowsFormsIntegration') | Out-Null
+[System.Reflection.Assembly]::LoadWithPartialName('System.ComponentModel') | Out-Null
+[System.Reflection.Assembly]::LoadWithPartialName('System.Data') | Out-Null
+[System.Reflection.Assembly]::LoadWithPartialName('System.Drawing') | Out-Null
+[System.Reflection.Assembly]::LoadWithPartialName('presentationframework') | Out-Null
 
-[System.Reflection.Assembly]::LoadWithPartialName('PresentationCore') | out-null
-[System.Reflection.Assembly]::LoadFrom('res\assembly\MahApps.Metro.dll') | out-null
-[System.Reflection.Assembly]::LoadFrom('res\assembly\System.Windows.Interactivity.dll') | out-null
-[System.Reflection.Assembly]::LoadFrom('res\assembly\MahApps.Metro.IconPacks.dll') | out-null
+[System.Reflection.Assembly]::LoadWithPartialName('PresentationCore') | Out-Null
+[System.Reflection.Assembly]::LoadFrom('res\assembly\MahApps.Metro.dll') | Out-Null
+[System.Reflection.Assembly]::LoadFrom('res\assembly\System.Windows.Interactivity.dll') | Out-Null
+[System.Reflection.Assembly]::LoadFrom('res\assembly\MahApps.Metro.IconPacks.dll') | Out-Null
 
 # When compiled with PS2EXE the variable MyCommand contains no path anymore
 if ($MyInvocation.MyCommand.CommandType -eq "ExternalScript") {
@@ -166,6 +166,7 @@ $RKeyINVDE2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Unin
 $RKeyINVDE2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2464-0001-1031-7107D70F3DB4}"
 $RKeyINVDE2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2564-0001-1031-7107D70F3DB4}"
 $RKeyINVDE2022 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{1752579C-F9B1-37F2-ACC4-CA7FC070AF54}"
+# $RKeyINVDE2022_2 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2664-0001-1033-7107D70F3DB4}"
 $RKeyINVDE2023 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2764-0001-1031-7107D70F3DB4}"
 
 #Inventor English
@@ -175,7 +176,7 @@ $RKeyINVENU2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uni
 $RKeyINVENU2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2464-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2564-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2022 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{118C5CF4-9979-3199-80DA-9198A86DCCA5}"
-$RKeyINVENU2022_2 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2664-0001-1033-7107D70F3DB4}"
+# $RKeyINVENU2022_2 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2664-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2023 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2764-0001-1033-7107D70F3DB4}"
 
 Function HideShow($Year) {
@@ -191,16 +192,16 @@ Function HideShow($Year) {
     $RKeyINVDE = (Get-Variable -Name "RKeyINVDE$($Year)").Value
     $RKeyINVENU = (Get-Variable -Name "RKeyINVENU$($Year)").Value
 
-    if ($year -eq "2022" -and $RKeyINVENU -eq $false ) {
-        # there are servicepack languagepacks that need to be detected
-        # so if there isnt a languagepack found for the base installation look for the patches
-        $RKeyINVENU = (Get-Variable -Name "RKeyINVENU$($Year)_2").Value
-    }
-    if ($year -eq "2022" -and $RKeyINVDE -eq $false ) {
-        # there are servicepack languagepacks that need to be detected
-        # so if there isnt a languagepack found for the base installation look for the patches
-        $RKeyINVDE = (Get-Variable -Name "RKeyINVDE$($Year)_2").Value
-    }
+    # if ($year -eq "2022" -and $RKeyINVENU -eq $false ) {
+    #     # there are servicepack languagepacks that need to be detected
+    #     # so if there isnt a languagepack found for the base installation look for the patches
+    #     $RKeyINVENU = (Get-Variable -Name "RKeyINVENU$($Year)_2").Value
+    # }
+    # if ($year -eq "2022" -and $RKeyINVDE -eq $false ) {
+    #     # there are servicepack languagepacks that need to be detected
+    #     # so if there isnt a languagepack found for the base installation look for the patches
+    #     $RKeyINVDE = (Get-Variable -Name "RKeyINVDE$($Year)_2").Value
+    # }
 
     if ($RKeyACADDE) { $WPFACADDE_BT.Visibility = "visible" }
     else { $WPFACADDE_BT.Visibility = "hidden" }
@@ -321,15 +322,15 @@ function SetTheme($Themestr) {
     $Theme = [MahApps.Metro.ThemeManager]::DetectAppStyle($Form)
     if ($Themestr -eq "DarkTheme") {
         $global:ThemeProperty = "DarkTheme"
-        [MahApps.Metro.ThemeManager]::ChangeAppStyle($Form, $Theme.Item2, [MahApps.Metro.ThemeManager]::GetAppTheme("BaseDark"));
+        [MahApps.Metro.ThemeManager]::ChangeAppStyle($Form, $Theme.Item2, [MahApps.Metro.ThemeManager]::GetAppTheme("BaseDark"))
         $Theme = [MahApps.Metro.ThemeManager]::DetectAppStyle($Form)
-        [MahApps.Metro.ThemeManager]::ChangeAppStyle($Form, [MahApps.Metro.ThemeManager]::GetAccent("Steel"), $Theme.Item1);
+        [MahApps.Metro.ThemeManager]::ChangeAppStyle($Form, [MahApps.Metro.ThemeManager]::GetAccent("Steel"), $Theme.Item1)
     }
     else {
         $global:ThemeProperty = "LightTheme"
-        [MahApps.Metro.ThemeManager]::ChangeAppStyle($Form, $Theme.Item2, [MahApps.Metro.ThemeManager]::GetAppTheme("BaseLight")); 
+        [MahApps.Metro.ThemeManager]::ChangeAppStyle($Form, $Theme.Item2, [MahApps.Metro.ThemeManager]::GetAppTheme("BaseLight")) 
         $Theme = [MahApps.Metro.ThemeManager]::DetectAppStyle($Form)
-        [MahApps.Metro.ThemeManager]::ChangeAppStyle($Form, [MahApps.Metro.ThemeManager]::GetAccent("Cobalt"), $Theme.Item1);
+        [MahApps.Metro.ThemeManager]::ChangeAppStyle($Form, [MahApps.Metro.ThemeManager]::GetAccent("Cobalt"), $Theme.Item1)
     }
 }
 
@@ -430,7 +431,7 @@ Function ReadXAML {
     # Load XAML Objects In PowerShell
     #===========================================================================
     $global:wpfElement = @()
-    $xaml.SelectNodes("//*[@Name]") | ForEach-Object { "trying item $($_.Name)";
+    $xaml.SelectNodes("//*[@Name]") | ForEach-Object { "trying item $($_.Name)"
         try {
             Set-Variable -Name "WPF$($_.Name)" -Value $Form.FindName($_.Name) -ErrorAction Stop -Scope global
             $global:wpfElement += (Get-Variable -Name "WPF$($_.Name)").Value
@@ -440,9 +441,9 @@ Function ReadXAML {
     }
 
     Function Get-FormVariables {
-        if ($global:ReadmeDisplay -ne $true) { Write-host "If you need to reference this display again, run Get-FormVariables" -ForegroundColor Yellow; $global:ReadmeDisplay = $true }
-        write-host "Found the following interactable elements from our form" -ForegroundColor Cyan
-        get-variable $global:WPF*
+        if ($global:ReadmeDisplay -ne $true) { Write-Host "If you need to reference this display again, run Get-FormVariables" -ForegroundColor Yellow; $global:ReadmeDisplay = $true }
+        Write-Host "Found the following interactable elements from our form" -ForegroundColor Cyan
+        Get-Variable $global:WPF*
     }
     #Print foun variables 
     Get-FormVariables
