@@ -51,38 +51,46 @@ Currently it works for AutoCAD / AutoCAD Mechanical / Inventor / Inventor Read O
 
 At startup it will check what is installed and depending on that it will display a Icon or not.
 
-![](/docs/adskd_interface1.png)
+![light1](/docs/adskd_interface1_light.png)
+
+![dark1](/docs/adskd_interface1_dark.png)
 
 So as a sample if click on 2020 there are alot more products displayed because there is also AutoCAD and AutoCAD Mechanical installed.
 
-![](/docs/adskd_interface2.png)
+![light2](/docs/adskd_interface2_light.png)
+
+![dark2](/docs/adskd_interface2_dark.png)
 
 # Settings
 
 At the moment there are only three settings. you can change to a dark mode and you can set the window to be always on top.
 Also you can decide if the window should be minimized after clicking on something to start.
 
-![](/docs/adskd_settings.png)
+![settings](/docs/adskd_settings.png)
 
 # Closing
 
 If you hover over the "X" in the top right corner, you can see that it tells you close to systray. It wont actualy close from there.
 
-![](/docs/adskd_closetosystray.png)
+![closetosystray](/docs/adskd_closetosystray.png)
 
 After that you can restart it from systray.
 
-![](/docs/adskd_systrayicon.png)
+![systrayicon](/docs/adskd_systrayicon.png)
+
+or close it.
+
+![exit](/docs/adskd_exit.png)
 
 # Tool doesn't start
 
 At the moment it is not signed so you probably get a windows defender message which you need to allow.
 
-![](/docs/adskd_smartscreen.png)
+![smartscreen](/docs/adskd_smartscreen.png)
 
 Also make sure that all dll files are not blocked. Open res\assembly folder and check by rightclicking on dll file.
 
-![](/docs/adskd_blocked.jpg)
+![blocked](/docs/adskd_blocked.jpg)
 
 # License
 
