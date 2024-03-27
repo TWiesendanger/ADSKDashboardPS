@@ -171,10 +171,9 @@ $RKeyACADMENU2024 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\U
 $RKeyINVDE2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2364-0001-1031-7107D70F3DB4}"
 $RKeyINVDE2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2464-0001-1031-7107D70F3DB4}"
 $RKeyINVDE2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2564-0001-1031-7107D70F3DB4}"
-$RKeyINVDE2022 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{1752579C-F9B1-37F2-ACC4-CA7FC070AF54}"
-# $RKeyINVDE2022_2 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2664-0001-1033-7107D70F3DB4}"
+$RKeyINVDE2022 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2664-0001-1031-7107D70F3DB4}"
 $RKeyINVDE2023 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2764-0001-1031-7107D70F3DB4}"
-$RKeyINVDE2024 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2864-0001-1033-7107D70F3DB4}"
+$RKeyINVDE2024 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2864-0001-1031-7107D70F3DB4}"
 
 #Inventor English
 # $RKeyINVENU2017 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2164-0001-1033-7107D70F3DB4}"
@@ -182,10 +181,9 @@ $RKeyINVDE2024 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Unin
 $RKeyINVENU2019 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2364-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2020 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2464-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2021 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2564-0001-1033-7107D70F3DB4}"
-$RKeyINVENU2022 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{118C5CF4-9979-3199-80DA-9198A86DCCA5}"
-# $RKeyINVENU2022_2 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2664-0001-1033-7107D70F3DB4}"
+$RKeyINVENU2022 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2664-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2023 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2764-0001-1033-7107D70F3DB4}"
-$RKeyINVENU2024 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2864-0001-0000-7107D70F3DB4}"
+$RKeyINVENU2024 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2864-0001-1033-7107D70F3DB4}"
 
 Function HideShow($Year) {
     #Set Active Year
