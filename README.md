@@ -7,7 +7,7 @@ If you have multiple Autodeskproducts in diffrent releases and languages install
 Currently it works for AutoCAD / AutoCAD Mechanical / Inventor / Inventor Read Only from Release 2017 to 2021.
 # Update 0.97
 
-- update to scan for 2024 products
+- update to scan for 2025 products
 
 # Update v0.96
 
