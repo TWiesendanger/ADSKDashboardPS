@@ -2,7 +2,7 @@
 
 Shortcuts to open Autodesk Software.
 
-If you have multiple Autodeskproducts in diffrent releases and languages installade it can be a pain to open exactly what you need. At least thats what I was experiencing and so I built this tool.
+If you have multiple Autodeskproducts in different releases and languages installed it can be a pain to open exactly what you need. At least thats what I was experiencing and so I built this tool.
 
 Currently it works for AutoCAD / AutoCAD Mechanical / Inventor / Inventor Read Only from Release 2017 to 2021.
 
