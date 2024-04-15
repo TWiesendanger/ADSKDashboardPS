@@ -5,54 +5,56 @@ Shortcuts to open Autodesk Software.
 If you have multiple Autodeskproducts in diffrent releases and languages installade it can be a pain to open exactly what you need. At least thats what I was experiencing and so I built this tool.
 
 Currently it works for AutoCAD / AutoCAD Mechanical / Inventor / Inventor Read Only from Release 2017 to 2021.
-# Update 0.97
+
+## Update v0.97
 
 - update to scan for 2025 products
 
-# Update v0.96
+## Update v0.96
 
 - updated to scan for 2024 products
 
-# Update v0.95
+## Update v0.95
 
 - updated to scan for 2023 products
 
-# Update v0.94
+## Update v0.94
 
 - added detection for languagepacks inventor 2022 updates
 
-# Update v0.93
+## Update v0.93
 
 - updated to scan for 2022 products
 
-# Update v0.92
+## Update v0.92
 
 - Fixed a bug that did show ReadOnly for Version that do not have ReadOnly
 - Auto Close Function (After opening something, it closes down automatically)
 - Closes down if the window looses focus
 
-# Tool does not start!
+## Tool does not start
 
 [Have a look here](https://github.com/TWiesendanger/ADSKDashboardPS#tool-doesnt-start)
 
-# Table of Contents
+## Table of Contents
 
 - [ADSKDashboard](#adskdashboard)
-- [Update 0.97](#update-097)
-- [Update v0.96](#update-v096)
-- [Update v0.95](#update-v095)
-- [Update v0.94](#update-v094)
-- [Update v0.93](#update-v093)
-- [Update v0.92](#update-v092)
-- [Tool does not start!](#tool-does-not-start)
-- [Table of Contents](#table-of-contents)
-- [What is installed?](#what-is-installed)
-- [Settings](#settings)
-- [Closing](#closing)
-- [Tool doesn't start](#tool-doesnt-start)
-- [License](#license)
+  - [Update v0.97](#update-v097)
+  - [Update v0.96](#update-v096)
+  - [Update v0.95](#update-v095)
+  - [Update v0.94](#update-v094)
+  - [Update v0.93](#update-v093)
+  - [Update v0.92](#update-v092)
+  - [Tool does not start](#tool-does-not-start)
+  - [Table of Contents](#table-of-contents)
+  - [What is installed?](#what-is-installed)
+  - [Settings](#settings)
+  - [Closing](#closing)
+  - [Tool doesn't start](#tool-doesnt-start)
+  - [Build](#build)
+  - [License](#license)
 
-# What is installed?
+## What is installed?
 
 At startup it will check what is installed and depending on that it will display a Icon or not.
 
@@ -66,14 +68,14 @@ So as a sample if click on 2020 there are alot more products displayed because t
 
 ![dark2](/docs/adskd_interface2_dark.png)
 
-# Settings
+## Settings
 
 At the moment there are only three settings. you can change to a dark mode and you can set the window to be always on top.
 Also you can decide if the window should be minimized after clicking on something to start.
 
 ![settings](/docs/adskd_settings.png)
 
-# Closing
+## Closing
 
 If you hover over the "X" in the top right corner, you can see that it tells you close to systray. It wont actualy close from there.
 
@@ -87,7 +89,7 @@ or close it.
 
 ![exit](/docs/adskd_exit.png)
 
-# Tool doesn't start
+## Tool doesn't start
 
 At the moment it is not signed so you probably get a windows defender message which you need to allow.
 
@@ -97,7 +99,11 @@ Also make sure that all dll files are not blocked. Open res\assembly folder and 
 
 ![blocked](/docs/adskd_blocked.jpg)
 
-# License
+## Build
+
+To build this use the provided buildscript. For this to work you need to installa `ps2exe` first. Do it like this: `Install-Module ps2exe`.
+
+## License
 
 MIT License
 
