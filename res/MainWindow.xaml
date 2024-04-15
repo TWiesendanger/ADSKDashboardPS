@@ -96,6 +96,12 @@
             </Style>
         </Grid.Resources>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+            <!-- 2025 -->
+            <ToggleButton x:Name="Y2025Tab" Margin="5" Style="{StaticResource ToggleButtonStyleYear}">
+                <ToggleButton.Content>
+                    <Image x:Name="Y2025Tab_IMG" Source="res/YButton2025.png" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
+                </ToggleButton.Content>
+            </ToggleButton>
             <!-- 2024 -->
             <ToggleButton x:Name="Y2024Tab" Margin="5" Style="{StaticResource ToggleButtonStyleYear}">
                 <ToggleButton.Content>
@@ -127,11 +133,11 @@
                 </ToggleButton.Content>
             </ToggleButton>
             <!-- 2019 -->
-            <ToggleButton x:Name="Y2019Tab" Margin="5" Style="{StaticResource ToggleButtonStyleYear}">
+            <!--ToggleButton x:Name="Y2019Tab" Margin="5" Style="{StaticResource ToggleButtonStyleYear}">
                 <ToggleButton.Content>
                     <Image x:Name="Y2019Tab_IMG" Source="res/YButton2019.png" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" />
                 </ToggleButton.Content>
-            </ToggleButton>
+            </ToggleButton> -->
             <!-- 2018 -->
             <!--ToggleButton x:Name="Y2018Tab" Margin="5" Style="{StaticResource ToggleButtonStyleYear}">
                 <ToggleButton.Content>
