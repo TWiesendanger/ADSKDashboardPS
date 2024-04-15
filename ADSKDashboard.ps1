@@ -191,6 +191,7 @@ $RKeyINVENU2023 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uni
 $RKeyINVENU2024 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2864-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2025 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2964-0001-1033-7107D70F3DB4}"
 
+
 Function HideShow($Year) {
     #Set Active Year
     $YearButton = (Get-Variable -Name "WPFY$($Year)Tab").Value
@@ -479,7 +480,7 @@ InitializeAll
 #                            Button Click Events
 #===========================================================================
 #region Tabs
-$WPFY2024Tab.Add_click( {
+$WPFY2025Tab.Add_click( {
         Write-Host "2025"
         HideShow 2025
         $global:ActiveYear = "2025"
