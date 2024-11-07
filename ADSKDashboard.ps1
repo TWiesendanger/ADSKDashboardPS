@@ -173,6 +173,16 @@ $RKeyINVENU2023 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uni
 $RKeyINVENU2024 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2864-0001-1033-7107D70F3DB4}"
 $RKeyINVENU2025 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{7F4DD591-2964-0001-1033-7107D70F3DB4}"
 
+# Revit (no languages)
+$RKeyREV2024 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{F9013D08-6F9F-3F9B-8360-93C40ABE4C1B}"
+$RKeyREV2025 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{686CE2A3-7C33-3AD5-806A-75A6E648117F}"
+
+# Navisworks Manage (no languages)
+$RKeyNAV2024 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{1BB907BC-4F14-3ED2-950C-39A3D99D2EFE}"
+$RKeyNAV2025 = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{8B16656F-649F-0000-99BD-374235D3813D}"
+
+# Recap (no languages)
+$RKeyRECAPYYYY = Test-Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\{EA239CF5-0000-1033-0102-A32E3BC9F58A}"
 
 Function HideShow($Year) {
     #Set Active Year
@@ -235,16 +245,42 @@ Function HideShow($Year) {
         $WPFINVENU_BT.Visibility = "hidden" 
         $WPFINVROENU_BT.Visibility = "hidden"
     }
+
+    if ($RKeyREV) {
+        $WPFREVITDE_BT.Visibility = "visible"
+        $WPFREVITENG_BT.Visibility = "visible"
+    }
+    else {
+        $WPFREVITDE_BT.Visibility = "hidden"
+        $WPFREVITENG_BT.Visibility = "hidden"
+    }
+
+    if ($RKeyNav) {
+        $WPFNAVDE_BT.Visibility = "visible"
+        $WPFNAVENG_BT.Visibility = "visible"
+    }
+    else {
+        $WPFNAVDE_BT.Visibility = "hidden"
+        $WPFNAVENG_BT.Visibility = "hidden"
+    }
+
+    if ($RKeyRECAPYYYY) {
+        $WPFRECAP_BT.Visibility = "visible"
+    }
+    else {
+        $WPFRECAP_BT.Visibility = "hidden"
+    }
+    
 }
 
 Function OpenSoftware($SoftwareProduct, $language) {
-
 
     # INVENTOR and INVENTOR READ ONLY
     if ($SoftwareProduct -eq "Inventor" -and $language -eq "Deutsch") {
         $exe = "Inventor.exe"
         $arguments = "/language=DEU"
         $sFolder = "\Bin\"
+        $noYear = $false
     }
     elseif ($SoftwareProduct -eq "Inventor Read Only" -and $language -eq "Deutsch") {
         $SoftwareProduct = "Inventor"
@@ -252,11 +288,13 @@ Function OpenSoftware($SoftwareProduct, $language) {
         $exe = "InvRO.exe"
         $arguments = "/language=DEU"
         $sFolder = "\Bin\"
+        $noYear = $false
     }
     elseif ($SoftwareProduct -eq "Inventor" -and $language -eq "English") {
         $exe = "Inventor.exe"
         $arguments = "/language=ENU"
         $sFolder = "\Bin\"
+        $noYear = $false
     }
     elseif ($SoftwareProduct -eq "Inventor Read Only" -and $language -eq "English") {
         $SoftwareProduct = "Inventor"
@@ -264,17 +302,20 @@ Function OpenSoftware($SoftwareProduct, $language) {
         $exe = "InvRO.exe"
         $arguments = "/language=ENU"
         $sFolder = "\Bin\"
+        $noYear = $false
     }
     # AUTOCAD
     elseif ($SoftwareProduct -eq "AutoCAD" -and $language -eq "Deutsch") {
         $exe = "acad.exe"
         $arguments = "/product ACAD /language de-DE"
         $sFolder = "\"
+        $noYear = $false
     }
     elseif ($SoftwareProduct -eq "AutoCAD" -and $language -eq "English") {
         $exe = "acad.exe"
         $arguments = "/product ACAD /language en-US"
         $sFolder = "\"
+        $noYear = $false
     }
     # AUTOCAD MECHANICAL
     elseif ($SoftwareProduct -eq "AutoCAD Mechanical" -and $language -eq "Deutsch") {
@@ -283,6 +324,7 @@ Function OpenSoftware($SoftwareProduct, $language) {
         $exe = "acad.exe"
         $arguments = "/product ACADM /language de-DE"
         $sFolder = "\"
+        $noYear = $false
     }
     elseif ($SoftwareProduct -eq "AutoCAD Mechanical" -and $language -eq "English") {
         $SoftwareProduct = "AutoCAD"
@@ -290,20 +332,68 @@ Function OpenSoftware($SoftwareProduct, $language) {
         $exe = "acad.exe"
         $arguments = "/product ACADM /language en-US"
         $sFolder = "\"
+        $noYear = $false
     }
+    elseif ($SoftwareProduct -eq "Revit" -and $language -eq "Deutsch") {
+        $SoftwareProduct = "Revit"
+        $exe = "Revit.exe"
+        $arguments = "/language DEU"
+        $sFolder = "\"
+        $noYear = $false
+    }
+    elseif ($SoftwareProduct -eq "Revit" -and $language -eq "English") {
+        $SoftwareProduct = "Revit"
+        $exe = "Revit.exe"
+        $arguments = "/language ENU"
+        $sFolder = "\"
+        $noYear = $false
+    }
+    elseif ($SoftwareProduct -eq "Navisworks Manage" -and $language -eq "Deutsch") {
+        $SoftwareProduct = "Navisworks Manage"
+        $exe = "Roamer.exe"
+        $arguments = " /licensing AdLM /lang de-DE"
+        $sFolder = "\"
+        $noYear = $false
+    }
+    elseif ($SoftwareProduct -eq "Navisworks Manage" -and $language -eq "English") {
+        $SoftwareProduct = "Navisworks Manage"
+        $exe = "Roamer.exe"
+        $arguments = " /licensing AdLM /lang en-US"
+        $sFolder = "\"
+        $noYear = $false
+    }
+    elseif ($SoftwareProduct -eq "Autodesk Recap") {
+        $SoftwareProduct = "Autodesk Recap"
+        $exe = "ReCap.exe"
+        $arguments = ""
+        $sFolder = "\"
+        $noYear = $true
+    }
+
     #endregion
     
     # Invoke Process
-    $pHelp = "C:\Program Files\Autodesk\" + $SoftwareProduct + " " + $global:ActiveYear + $sFolder + $exe 
+    if ($noYear -eq $true) {
+        $pHelp = "C:\Program Files\Autodesk\" + $SoftwareProduct + $sFolder + $exe 
+        $WPFInfoText.Text = ("{0}{1} {2} - {3}" -f $SoftwareProduct, $Addition, $language, "is loading." )
+    }
+    else {
+        $pHelp = "C:\Program Files\Autodesk\" + $SoftwareProduct + " " + $global:ActiveYear + $sFolder + $exe 
+        $WPFInfoText.Text = ("{0}{1} {2} - {3} {4}" -f $SoftwareProduct, $Addition, $global:ActiveYear, $language, "is loading." )
+    }
     Write-Host "Starting Process: " + $pHelp + "with the following arguments: " + $arguments
 
-    Start-Process -FilePath $pHelp -ArgumentList $arguments
+    if ([string]::IsNullOrWhiteSpace($arguments)) {
+        Start-Process -FilePath $pHelp
+    }
+    else {
+        Start-Process -FilePath $pHelp -ArgumentList $arguments
+    }
     # Hide the form after opening of product
     if ($WPFAutoClose.IsChecked -eq $true) {
         $Form.Hide()
     }
 
-    $WPFInfoText.Text = ("{0}{1} {2} - {3} {4}" -f $SoftwareProduct, $Addition, $global:ActiveYear, $language, "is loading." )
     Write-Host $WPFInfoText.Text
     $WPFInfoDialog.IsOpen = $true  
 }
@@ -345,6 +435,14 @@ function InitializeAll {
     $global:WPFACADMDE_IMG.Source = $PathShell + "\res\AutoCAD_DE.png"
     $global:WPFACADMENU_IMG.Source = $PathShell + "\res\AutoCAD_ENU.png"
 
+    $global:WPFREVITDE_IMG.Source = $PathShell + "\res\Revit_DE.png"
+    $global:WPFREVITENG_IMG.Source = $PathShell + "\res\Revit_ENU.png"
+    
+    $global:WPFNAVDE_IMG.Source = $PathShell + "\res\Navisworks_DE.png"
+    $global:WPFNAVENG_IMG.Source = $PathShell + "\res\Navisworks_ENU.png"
+
+    $global:WPFRECAP_IMG.Source = $PathShell + "\res\Recap.png"
+
     #Hide all at start
     foreach ($item in $wpfElement) {
         if ($item.name -like "*_BT") {
@@ -369,7 +467,7 @@ function InitializeAll {
 }
 
 #===========================================================================
-#                            Systray Region
+#                                                                                    Systray Region
 #===========================================================================
 
 # Add the systray icon 
@@ -380,7 +478,6 @@ $Main_Tool_Icon.Visible = $true
 
 [System.GC]::Collect()
 
-# Add menu exit
 $Menu_Exit = New-Object System.Windows.Forms.MenuItem
 $Menu_Exit.Text = "Exit"
 
@@ -538,6 +635,27 @@ $WPFACADMDE_BT.Add_click( {
     })
 $WPFACADMENU_BT.Add_click( {
         OpenSoftware "AutoCAD Mechanical" "English"
+    })
+
+#REVIT
+$WPFREVITDE_BT.Add_click( {
+        OpenSoftware "Revit" "Deutsch"
+    })
+$WPFREVITENG_BT.Add_click( {
+        OpenSoftware "Revit" "English"
+    })
+
+#NAVISWORKS MANAGE
+$WPFNAVDE_BT.Add_click( {
+        OpenSoftware "Navisworks Manage" "Deutsch"
+    })
+$WPFNAVENG_BT.Add_click( {
+        OpenSoftware "Navisworks Manage" "English"
+    })
+
+#Recap
+$WPFRECAP_BT.Add_click( {
+        OpenSoftware "Autodesk Recap"
     })
 
 #endregion
