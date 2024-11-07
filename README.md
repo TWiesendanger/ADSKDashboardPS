@@ -6,6 +6,13 @@ If you have multiple Autodeskproducts in different releases and languages instal
 
 Currently it works for AutoCAD / AutoCAD Mechanical / Inventor / Inventor Read Only from Release 2017 to 2021.
 
+## Update v0.98
+
+- Added some more Autodesk products
+- Navisworks Manage
+- Revit
+- Recap
+
 ## Update v0.97
 
 - update to scan for 2025 products
@@ -39,6 +46,7 @@ Currently it works for AutoCAD / AutoCAD Mechanical / Inventor / Inventor Read O
 ## Table of Contents
 
 - [ADSKDashboard](#adskdashboard)
+  - [Update v0.98](#update-v098)
   - [Update v0.97](#update-v097)
   - [Update v0.96](#update-v096)
   - [Update v0.95](#update-v095)
